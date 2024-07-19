@@ -1,0 +1,130 @@
+from dataclasses import dataclass, field
+
+@dataclass
+class Car:
+    horsepower: int = field(default=50)
+    seats: int = field(default=4)
+    ID: int = field(default=111111)
+    name: str = field(default='Car')
+
+    def get_name(self) -> str:
+        return self.horsepower
+
+    def get_horsepower(self) -> int:
+        return self.horsepower
+
+    def get_seats(self) -> int:
+        return self.seats
+
+    def get_ID(self) -> str:
+        return self.ID
+
+    def set_ID(self, New_ID) -> int:
+        if 6>= len(str(New_ID)) >= 1:
+            self.ID = New_ID
+            return self.ID
+        else:
+            print('sorry ID needs to be within 6 digits')
+            return None
+
+
+    def set_horsepower(self,newhorsepower) -> int:
+        if newhorsepower > 0:
+            self.horsepower = newhorsepower
+            return self.horsepower
+        else:
+            print('sorry horsepower needs to be greater than 0')
+
+    def set_seats(self,newseats) -> int:
+        if newseats >= 1:
+            self.seats = newseats
+            return self.seats
+        else:
+            print('sorry seats needs to be at least 1')
+
+    def set_name(self,new_name) -> str:
+        if 10>= len(new_name) >= 1:
+            self.name = new_name
+            return self.name
+        else:
+            print('sorry name needs to be within 10 digits')
+
+
+    def __str__(self) -> str:
+        return str(self.name)+ 'has: ' +str(self.horsepower) + ' horsepower and ' +str(self.seats)+ ' seats with ID: ' +str(self.ID)
+
+#class borrowed from classmate Lark Trumbly
+@dataclass
+class Dog:
+    id: int = 1
+    name:  str = 'Noodles'
+
+    def __str__(self) -> str:
+        obj_str = "Dog #" + str(self.id) + ": " + self.name
+        return obj_str
+
+    def get_id(self) -> int:
+        return self.id
+
+    def get_name(self) -> str:
+        return self.name
+
+    def set_id(self, new_id: int) -> None:
+        if type(new_id) is int and new_id > 0:
+            self.id = new_id
+        else:
+            raise ValueError
+
+    def set_name(self, new_name: str) -> None:
+        if type(new_name) is str and len(new_name) > 0:
+            self.name = new_name
+        else:
+            raise ValueError
+
+def print_ID(list):
+    for key in list:
+        print(f'{key}: {id(key)}')
+
+
+def main():
+
+    Jonathan = Dog()
+    Jonathan.set_name('jonathan')
+    Jonathan.set_id(5)
+
+    Bealt = Dog()
+    Bealt.set_id(6)
+    Bealt.set_name('bealt')
+
+    cheva = Car()
+    cheva.set_name('cheva')
+    cheva.set_horsepower(500)
+    cheva.set_seats(2)
+    cheva.set_ID(41233)
+
+    herra = Car()
+    herra.set_name('herra')
+    herra.set_horsepower(750)
+    herra.set_seats(3)
+    herra.set_ID(342342)
+
+    my_list = [Jonathan, Bealt, cheva, herra]
+    d = 0
+    c = 0
+
+    for x in my_list:
+        if isinstance(x, Dog) is True:
+            print('{}: ID ={}'.format(x.name, id(x)))
+            d += 1
+        elif isinstance(x,Car) is True:
+            print('{}: ID ={}'.format(x.name, id(x)))
+            c += 1
+
+    print(f"total numbers of dogs: {d}, total numbers of cars: {c}")
+
+
+
+
+
+if __name__ == '__main__':
+    main()
