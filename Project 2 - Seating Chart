@@ -1,0 +1,60 @@
+from typing import List
+
+import numpy as np
+
+seats = np.array([['Empty','Empty','Empty','Empty','Empty','Empty'],['Empty','Empty','Empty','Empty','Empty'],
+                  ['Empty','Empty','Empty','Empty'],['Empty','Empty','Empty'],['Empty','Empty']], dtype =object)
+
+
+
+
+
+
+def addStudent (student_name,target_row,target_column): #(y,x)
+        #student_name = np.array(seats[target_row][target_column])
+        seats[target_row][target_column] = student_name
+
+addStudent('addison', 3,2)
+addStudent('zack', 4,0)
+addStudent('blair', 2,0)
+addStudent('jack', 1,0)
+addStudent('zee', 0,0)
+addStudent('dsadfas', 0,2)
+iaddStudent('zee', 0,5)
+
+
+
+def displaySeatingChart():
+        for x in range(len(seats)):
+                print(seats[x])
+
+displaySeatingChart()
+
+teams = np.empty((6,), dtype=object)
+for i in range(len(seats)+1):
+    teams[i] = np.array([])
+
+
+def assignTeams():
+    z= 0
+    for y in range(len(seats)):
+        for x in range(len(seats[y])):
+            if seats[y][x] == 'Empty':
+                z += 1
+            else:
+                teams[z] = np.append(teams[z],seats[y][x])
+                print(seats[y][x])
+                z += 1
+        z = 0
+
+assignTeams()
+
+def displayTeams():
+    for x in range(len(teams)):
+        print(f"team {x}:")
+        print(teams[x])
+
+displayTeams()
+
+
+#function displayTeeams, display each team member and list all of the students in each team.
