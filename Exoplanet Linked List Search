@@ -1,0 +1,76 @@
+class exoplanetNode:
+
+    # initializer ("constructor") method ------------------------
+    def __init__(self, name, OrbRadius, OrbPeriod, year, numJupiters):
+        # instance attributes
+        self.next = None
+        self.ID = name
+        self.orbital_radius = OrbRadius
+        self.orbital_period = OrbPeriod
+        self.discovery_date = year
+        self.mass = numJupiters
+
+    # list-support -------------------------------------------
+    def remove_after(self):
+        temp = self.next
+        if temp != None:
+            self.next = temp.next
+        return temp;
+
+    def insert_after(self, new_node):
+        if not isinstance(new_node, exoplanetNode):
+            return
+        new_node.next = self.next
+        self.next = new_node
+        # stringizer ----------------------------------------------
+
+    def __str__(self):
+        return "id: " + self.ID + "\nOrbital Radius: " + str(self.orbital_radius) + "\nOrbital Period: " + str(
+            self.orbital_period) + "\nDiscovery Date:" + str(self.discovery_date) + "\nMass: " + str(self.mass)
+    # END CLASS Node ------------------------------------------
+class LinkedList():
+
+    def __init__(self):
+        self.head = None
+    def insert(self,node):
+        if self.head == None:
+            self.head = node
+            return
+        else:
+            node.next = self.head
+            self.head = node
+
+
+
+    #def push(self,new_data):
+
+        #new_node = exoplanetNode(new_data)
+        #new_node.next = self.head
+        #self.head = new_node
+
+
+def main():
+    zzz = LinkedList()
+
+    planet1 = exoplanetNode("11 Comae Berenices b", 1.178, 323.2, 2007, 15.464)
+    planet2 = exoplanetNode("11 Ursae Minoris b", 1.53, 1.4, 2009, 14.74)
+    planet3 = exoplanetNode("14 Andromedae b", 0.775, 186.8, 2008, 3.559)
+
+    zzz.insert(planet1)
+    zzz.insert(planet2)
+    zzz.insert(planet3)
+
+    p = planet3
+
+    total_mass = 0
+
+    while p:
+        total_mass += p.mass
+        p = p.next
+
+    print(total_mass)
+
+
+
+if __name__ == '__main__':
+    main()
