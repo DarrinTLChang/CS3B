@@ -1,60 +1,135 @@
 from typing import List
-
+from dataclasses import dataclass
 import numpy as np
 
-seats = np.array([['Empty','Empty','Empty','Empty','Empty','Empty'],['Empty','Empty','Empty','Empty','Empty'],
-                  ['Empty','Empty','Empty','Empty'],['Empty','Empty','Empty'],['Empty','Empty']], dtype =object)
+
+@dataclass
+class Elementary_school():
+
+    seats = np.array([
+        ['Empty', 'Empty', 'Empty', 'Empty', 'Empty', 'Empty'],
+        ['Empty', 'Empty', 'Empty', 'Empty', 'Empty'],
+        ['Empty', 'Empty', 'Empty', 'Empty'],
+        ['Empty', 'Empty', 'Empty'],
+        ['Empty', 'Empty']
+    ], dtype=object)
+    teams = np.empty((6,), dtype=object)
+
+    def addStudent (self,student_name,target_row,target_column):
+            self.seats[target_row][target_column] = student_name
+
+    def displaySeatingChart(self):
+        for x in range(len(self.seats)):
+            for y in range(len(self.seats[x])):
+                print(self.seats[x][y], end="\t")
+            print("\n")
 
 
 
+    def assignTeams(self):
 
+        for i in range(len(self.seats) + 1):
+            self.teams[i] = np.array([], dtype=object)
 
-
-def addStudent (student_name,target_row,target_column): #(y,x)
-        #student_name = np.array(seats[target_row][target_column])
-        seats[target_row][target_column] = student_name
-
-addStudent('addison', 3,2)
-addStudent('zack', 4,0)
-addStudent('blair', 2,0)
-addStudent('jack', 1,0)
-addStudent('zee', 0,0)
-addStudent('dsadfas', 0,2)
-iaddStudent('zee', 0,5)
-
-
-
-def displaySeatingChart():
-        for x in range(len(seats)):
-                print(seats[x])
-
-displaySeatingChart()
-
-teams = np.empty((6,), dtype=object)
-for i in range(len(seats)+1):
-    teams[i] = np.array([])
-
-
-def assignTeams():
-    z= 0
-    for y in range(len(seats)):
-        for x in range(len(seats[y])):
-            if seats[y][x] == 'Empty':
-                z += 1
-            else:
-                teams[z] = np.append(teams[z],seats[y][x])
-                print(seats[y][x])
-                z += 1
         z = 0
+        for y in range(len(self.seats)):
+            for x in range(len(self.seats[y])):
+                if self.seats[y][x] == 'Empty':
+                    z += 1
+                else:
+                    self.teams[z] = np.append(self.teams[z], self.seats[y][x])
+                    z += 1
+            z = 0
 
-assignTeams()
+    def displayTeams(self):
 
-def displayTeams():
-    for x in range(len(teams)):
-        print(f"team {x}:")
-        print(teams[x])
+        for x in range(len(self.teams)):
+            print(f"team {x}:")
+            for y in range(len(self.teams[x])):
+                print(self.teams[x][y], end=" ")
+            if len(self.teams[x]) == 0:
+                print("None")
+            print("\n")
 
-displayTeams()
+
+def main():
+    SpringElementarySchool = Elementary_school()
+
+    print("\nwelcome to project 2, below you can see the empty seats available before the students come\n")
+
+    SpringElementarySchool.displaySeatingChart()
+
+    SpringElementarySchool.addStudent('Addy',3, 2)
+    SpringElementarySchool.addStudent('Zack', 4, 0)
+    SpringElementarySchool.addStudent('Blair', 2, 0)
+    SpringElementarySchool.addStudent('Jack', 1, 0)
+    SpringElementarySchool.addStudent('Zeed', 0, 0)
+    SpringElementarySchool.addStudent('Jason', 0, 2)
+    SpringElementarySchool.addStudent('Desan', 0, 5)
+    SpringElementarySchool.addStudent('Peter', 1, 4)
+    SpringElementarySchool.addStudent('Mike', 1, 1)
+    SpringElementarySchool.addStudent('Kevin', 3, 1)
+
+    print("Here are the students! Look at how they take their seats\n")
+    SpringElementarySchool.displaySeatingChart()
+
+    SpringElementarySchool.assignTeams()
+
+    print("Here are the teams! Look at how they're organized!\n")
+    SpringElementarySchool.displayTeams()
+
+if __name__ == '__main__':
+    main()
+
+r"""
+"C:\Users\darri\PycharmProjects\CS3B Wk 2\.venv\Scripts\python.exe" "C:\Users\darri\PycharmProjects\CS3B Wk 2\Python2SeatingChart.py" 
+
+welcome to project 2, below you can see the empty seats available before the students come
+
+Empty	Empty	Empty	Empty	Empty	Empty	
+
+Empty	Empty	Empty	Empty	Empty	
+
+Empty	Empty	Empty	Empty	
+
+Empty	Empty	Empty	
+
+Empty	Empty	
+
+Here are the students! Look at how they take their seats
+
+Zeed	Empty	Jason	Empty	Empty	Desan	
+
+Jack	Mike	Empty	Empty	Peter	
+
+Blair	Empty	Empty	Empty	
+
+Empty	Kevin	Addy	
+
+Zack	Empty	
+
+Here are the teams! Look at how they're organized!
+
+team 0:
+Zeed Jack Blair Zack 
+
+team 1:
+Mike Kevin 
+
+team 2:
+Jason Addy 
+
+team 3:
+None
 
 
-#function displayTeeams, display each team member and list all of the students in each team.
+team 4:
+Peter 
+
+team 5:
+Desan 
+
+
+Process finished with exit code 0
+
+"""
